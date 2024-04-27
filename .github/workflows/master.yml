@@ -141,8 +141,9 @@ jobs:
           
   docker-build:
     env:
-      DOCKER_REGISTRY: "docker.io/"
-      DOCKER_REPOSITORY: "bond00701011990722/"
+      REGISTRY: ghcr.io
+      DOCKER_REGISTRY: ghcr.io/
+      DOCKER_REPOSITORY: ios-mcn-core/
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -155,9 +156,9 @@ jobs:
 
       - uses: docker/login-action@v3.1.0
         with:
-          registry: docker.io
-          username: ${{ secrets.DOCKERUSER }}
-          password: ${{ secrets.DOCKERPASS }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.GHCRUSER }}
+          password: ${{ secrets.GHCRPASS }}
 
       - name: Build and push Docker image
         run: |
